@@ -1,0 +1,1780 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANHAR GURUKKAL | Portfolio</title>
+
+    <!-- Meta tags -->
+    <meta name="description"
+        content="Full Stack Engineer specializing in Python backends and React interfaces. Building robust systems with modern technologies.">
+    <link rel="icon" type="image/png" href="manhar.png" />
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'display': ['"Syne"', 'sans-serif'],
+                        'mono': ['"Space Mono"', 'monospace'],
+                        'sans': ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    colors: {
+                        'neon': '#D4FF00',
+                        'neon-dark': '#B8E000',
+                        'dark': '#0a0a0a',
+                        'darker': '#050505',
+                        'card': '#111111',
+                        'border': '#222222',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'slide-down': 'slideDown 0.5s ease-out forwards',
+                        'slide-left': 'slideLeft 0.8s ease-out forwards',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        fadeIn: {
+                            'from': { opacity: '0' },
+                            'to': { opacity: '1' }
+                        },
+                        slideUp: {
+                            'from': { opacity: '0', transform: 'translateY(30px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideDown: {
+                            'from': { opacity: '0', transform: 'translateY(-20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideLeft: {
+                            'from': { opacity: '0', transform: 'translateX(-30px)' },
+                            'to': { opacity: '1', transform: 'translateX(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <style>
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Grain Overlay */
+        .grain-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9998;
+            opacity: 0.015;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* Loading Screen */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .loading-bar {
+            width: 200px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
+            overflow: hidden;
+            border-radius: 1px;
+        }
+
+        .loading-progress {
+            width: 0%;
+            height: 100%;
+            background: #D4FF00;
+            animation: loading 2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+        }
+
+        @keyframes loading {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+
+        /* Enhanced Navigation - Mobile First */
+        /* Enhanced Navigation - Mobile First */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 1rem;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (min-width: 768px) {
+            nav {
+                padding: 1.25rem 1.5rem;
+            }
+        }
+
+        /* Desktop Navigation - Always show on large screens */
+        .desktop-nav {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .desktop-nav {
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+            }
+        }
+
+        /* Mobile Hamburger Button - Always show on small screens */
+        .mobile-nav-btn {
+            display: flex;
+            width: 32px;
+            height: 32px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            z-index: 1000;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-nav-btn {
+                display: none;
+            }
+        }
+
+        .mobile-nav-btn span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: white;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            transform-origin: center;
+        }
+
+        .mobile-nav-btn.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+            background: #D4FF00;
+        }
+
+        .mobile-nav-btn.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(-10px);
+        }
+
+        .mobile-nav-btn.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+            background: #D4FF00;
+        }
+
+        /* Mobile Menu Overlay */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-menu-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Mobile Menu Content */
+        .mobile-menu-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            padding: 2rem;
+        }
+
+        .mobile-nav-link {
+            display: block;
+            font-size: 1.75rem;
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            padding: 0.75rem 0;
+            position: relative;
+        }
+
+        .mobile-nav-link:hover {
+            color: #D4FF00;
+            transform: translateX(10px);
+        }
+
+        .mobile-cv-btn {
+            margin-top: 2rem;
+            background: linear-gradient(135deg, #D4FF00 0%, #B8E000 100%);
+            color: #0a0a0a;
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .mobile-cv-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 255, 0, 0.3);
+        }
+
+        /* Desktop Nav Links */
+        .nav-link {
+            position: relative;
+            text-decoration: none;
+            color: white;
+            transition: all 0.3s ease;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .nav-link:hover {
+            color: #D4FF00;
+            background: rgba(212, 255, 0, 0.1);
+        }
+
+        /* CV Button */
+        .cv-btn {
+            background: linear-gradient(135deg, #D4FF00 0%, #B8E000 100%);
+            color: #0a0a0a;
+            padding: 0.5rem 1.25rem;
+            border-radius: 9999px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .cv-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(212, 255, 0, 0.3);
+        }
+
+        /* Hero Section */
+        .hero-line {
+            overflow: hidden;
+            line-height: 0.85;
+        }
+
+        .hero-text {
+            display: block;
+            transform: translateY(100%);
+            opacity: 0;
+        }
+
+        /* Name Highlight */
+        .name-highlight {
+            background: linear-gradient(135deg, #D4FF00 0%, #B8E000 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+        }
+
+        /* CTA Buttons */
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            border-radius: 9999px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+        }
+
+        @media (min-width: 768px) {
+            .cta-btn {
+                padding: 1rem 2rem;
+            }
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 255, 0, 0.25);
+        }
+
+        /* Enhanced Skill Cards */
+        .skill-card-main {
+            position: relative;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .skill-card-main {
+                padding: 2.5rem;
+            }
+        }
+
+        .skill-card-main::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(212, 255, 0, 0.05), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .skill-card-main:hover::before {
+            transform: translateX(100%);
+        }
+
+        .skill-card-main:hover {
+            border-color: #D4FF00;
+            transform: translateY(-5px);
+        }
+
+        /* Project Cards */
+        .project-card {
+            display: block;
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .project-card {
+                padding: 2rem;
+            }
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(212, 255, 0, 0.03), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .project-card:hover {
+            border-color: #D4FF00;
+            transform: translateY(-5px);
+        }
+
+        /* Tech Tags */
+        .tech-tag {
+            display: inline-block;
+            background: rgba(212, 255, 0, 0.1);
+            color: #D4FF00;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-family: 'Space Mono', monospace;
+            font-size: 0.75rem;
+            border: 1px solid rgba(212, 255, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-tag:hover {
+            background: rgba(212, 255, 0, 0.2);
+        }
+
+        /* Structured Experience Section */
+        .experience-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        @media (min-width: 1024px) {
+            .experience-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+        }
+
+        .experience-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (min-width: 768px) {
+            .experience-card {
+                padding: 2.5rem;
+            }
+        }
+
+        .experience-card:hover {
+            border-color: #D4FF00;
+            transform: translateY(-5px);
+        }
+
+        .experience-timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .experience-timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, #D4FF00, transparent);
+        }
+
+        .experience-item {
+            position: relative;
+            margin-bottom: 2.5rem;
+        }
+
+        .experience-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .experience-item::before {
+            content: '';
+            position: absolute;
+            left: -1.55rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #D4FF00;
+            border: 3px solid rgba(212, 255, 0, 0.2);
+        }
+
+        /* Form Styles */
+        .form-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 0;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.125rem;
+            color: white;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @media (min-width: 768px) {
+            .form-input {
+                font-size: 1.25rem;
+            }
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-bottom-color: #D4FF00;
+            border-bottom-width: 2px;
+        }
+
+        /* Scroll Animations */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        /* Responsive Typography */
+        @media (max-width: 640px) {
+            .hero-text {
+                font-size: 2.5rem !important;
+                line-height: 1.1 !important;
+            }
+
+            h2 {
+                font-size: 2.5rem !important;
+            }
+
+            h3 {
+                font-size: 1.875rem !important;
+            }
+
+            .project-card h3 {
+                font-size: 1.75rem !important;
+            }
+        }
+
+        /* Responsive Padding */
+        section {
+            padding-left: 1rem;
+            padding-right: 1rem;
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        @media (min-width: 768px) {
+            section {
+                padding-left: 5rem;
+                padding-right: 5rem;
+                padding-top: 8rem;
+                padding-bottom: 8rem;
+            }
+        }
+
+        /* Smooth Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(212, 255, 0, 0.3);
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(212, 255, 0, 0.5);
+        }
+
+        /* Selection */
+        ::selection {
+            background: rgba(212, 255, 0, 0.3);
+            color: white;
+        }
+
+        /* Focus Styles */
+        *:focus-visible {
+            outline: 2px solid #D4FF00;
+            outline-offset: 2px;
+        }
+
+        /* Utility Classes */
+        .mobile-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .mobile-full {
+            width: 100%;
+        }
+
+        /* Hide/Show based on screen size */
+        .mobile-only {
+            display: block;
+        }
+
+        .desktop-only {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-only {
+                display: none;
+            }
+
+            .desktop-only {
+                display: block;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Grain Overlay -->
+    <div class="grain-overlay"></div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="text-center">
+            <h1 class="font-display text-3xl md:text-6xl font-black tracking-tighter mb-4">MANHAR<span
+                    class="text-neon">.</span></h1>
+            <p class="font-mono text-sm text-gray-400 tracking-widest">LOADING PORTFOLIO</p>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Navigation -->
+    <!-- Enhanced Navigation -->
+    <nav id="main-nav" class="flex justify-between items-center">
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 md:w-10 md:h-10 bg-neon rounded-lg md:rounded-xl flex items-center justify-center">
+                <span class="font-display font-black text-dark text-base md:text-xl">M</span>
+            </div>
+            <h1 class="font-display font-extrabold text-lg md:text-xl tracking-tighter">
+                MANHAR GURUKKAL <span class="text-neon">.</span>
+                <span class="font-mono text-xs bg-white/5 px-2 py-1 rounded ml-2 hidden md:inline-block">FULL
+                    STACK</span>
+            </h1>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <div class="desktop-nav">
+            <a href="#about" class="nav-link">Identity</a>
+            <a href="#skills" class="nav-link">Arsenal</a>
+            <a href="#work" class="nav-link">Projects</a>
+            <a href="#experience" class="nav-link">Experience</a>
+            <a href="#contact" class="nav-link text-neon">Contact</a>
+            <a href="Manhar Gurukkal.pdf" download class="cv-btn">
+                <i class="ri-download-line"></i>
+                <span>CV</span>
+            </a>
+        </div>
+
+        <!-- Mobile Hamburger Menu Button -->
+        <button id="mobile-nav-btn" class="mobile-nav-btn" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu-overlay" class="mobile-menu-overlay">
+        <div class="mobile-menu-content">
+            <a href="#about" class="mobile-nav-link">Identity</a>
+            <a href="#skills" class="mobile-nav-link">Arsenal</a>
+            <a href="#work" class="mobile-nav-link">Projects</a>
+            <a href="#experience" class="mobile-nav-link">Experience</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
+            <a href="Manhar Gurukkal.pdf" download class="mobile-cv-btn">
+                <i class="ri-download-line"></i>
+                <span>Download CV</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen relative flex flex-col justify-center px-4 md:px-20 pt-20">
+        <!-- Background Elements -->
+        <div class="absolute top-1/4 left-1/4 w-48 h-48 md:w-64 md:h-64 bg-neon/5 rounded-full blur-3xl animate-float">
+        </div>
+        <div class="absolute bottom-1/4 right-1/4 w-64 h-64 md:w-96 md:h-96 bg-neon/3 rounded-full blur-3xl animate-float"
+            style="animation-delay: 1s;"></div>
+
+        <div class="relative z-10">
+            <!-- Badge -->
+            <div
+                class="inline-flex items-center gap-2 md:gap-3 font-mono text-xs md:text-sm mb-6 md:mb-8 border border-white/10 bg-white/5 rounded-full px-3 py-1.5 md:px-4 md:py-2 fade-in-up">
+                <div class="w-1.5 h-1.5 md:w-2 md:h-2 bg-neon rounded-full animate-pulse"></div>
+                <span class="text-neon">FULL STACK ENGINEER</span>
+            </div>
+
+            <!-- Main Headline -->
+            <h1
+                class="font-display font-black text-4xl md:text-[clamp(3rem,10vw,8rem)] leading-[0.9] md:leading-[0.85] uppercase tracking-tighter mb-6 md:mb-8">
+                <span class="hero-line block overflow-hidden">
+                    <span class="hero-text block">BUILDING</span>
+                </span>
+                <span class="hero-line block overflow-hidden">
+                    <span class="hero-text block text-neon">ROBUST</span>
+                </span>
+                <span class="hero-line block overflow-hidden">
+                    <span class="hero-text block">SYSTEMS</span>
+                </span>
+            </h1>
+
+            <!-- Subheadline -->
+            <div class="max-w-2xl mt-8 md:mt-12 fade-in-up" style="animation-delay: 0.3s;">
+                <p class="font-sans text-lg md:text-2xl lg:text-3xl text-gray-300 leading-relaxed">
+                    I bridge the gap between
+                    <span class="text-white font-semibold">complex Python backends</span>
+                    and
+                    <span class="text-white font-semibold">highly reactive React interfaces</span>,
+                    crafting performant, scalable digital experiences.
+                </p>
+            </div>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-wrap gap-3 md:gap-4 mt-8 md:mt-12 fade-in-up" style="animation-delay: 0.5s;">
+                <a href="#work" class="cta-btn bg-neon text-dark hover:bg-neon-dark mobile-full md:mobile-auto">
+                    <span>Explore Projects</span>
+                    <i class="ri-arrow-right-line"></i>
+                </a>
+                <a href="#contact"
+                    class="cta-btn border border-white/20 hover:border-neon hover:text-neon mobile-full md:mobile-auto">
+                    <span>Get in Touch</span>
+                    <i class="ri-send-plane-line"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-12 md:py-32 px-4 md:px-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="mobile-stack lg:grid lg:grid-cols-2 lg:gap-16">
+                <!-- Left Column -->
+                <div class="fade-in-left mb-8 md:mb-0">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-8 md:w-12 h-0.5 bg-neon"></div>
+                        <span class="font-mono text-neon uppercase tracking-widest text-sm">Profile</span>
+                    </div>
+                    <h2 class="font-display text-3xl md:text-7xl font-bold uppercase leading-tight mb-6">
+                        Crafting Digital<br>
+                        <span class="name-highlight">Excellence</span>
+                    </h2>
+                    <div class="flex items-center gap-4 mt-6 md:mt-12">
+                        <div class="w-8 h-8 bg-neon rounded-lg flex items-center justify-center">
+                            <i class="ri-code-s-slash-line text-dark"></i>
+                        </div>
+                        <p class="font-mono text-sm text-gray-400">Passionate about clean code & architecture</p>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="space-y-6 fade-in-right">
+                    <p class="font-sans text-gray-300 text-base md:text-lg leading-relaxed">
+                        I'm <span class="text-white font-semibold">Manhar Gurukkal</span>, a dedicated Full Stack
+                        Engineer
+                        with a passion for creating seamless digital experiences. My expertise lies in architecting
+                        robust systems that bridge the gap between efficient backend services and engaging frontend
+                        interfaces.
+                    </p>
+
+                    <p class="font-sans text-gray-300 text-base md:text-lg leading-relaxed">
+                        With a strong foundation in both Python and React ecosystems, I focus on building scalable
+                        applications that deliver optimal performance and maintainable codebases. My approach combines
+                        technical precision with creative problem-solving.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 md:gap-6 pt-6 md:pt-8 mt-6 md:mt-8 border-t border-white/10">
+                        <div class="text-center group">
+                            <div class="text-2xl md:text-3xl font-display font-bold text-neon mb-2">1+</div>
+                            <p class="font-mono text-xs uppercase text-gray-500">Years Experience</p>
+                        </div>
+                        <div class="text-center group">
+                            <div class="text-2xl md:text-3xl font-display font-bold text-neon mb-2">5+</div>
+                            <p class="font-mono text-xs uppercase text-gray-500">Projects Completed</p>
+                        </div>
+                    </div>
+
+                    <blockquote class="border-l-4 border-neon pl-4 md:pl-6 py-4 my-6 md:my-8">
+                        <p class="font-sans italic text-white text-base md:text-lg">
+                            "Code should solve problems elegantly while being a joy to maintain and extend."
+                        </p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-12 md:py-32 px-4 md:px-20 bg-darker">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="mb-12 md:mb-16 fade-in-up">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-8 md:w-12 h-0.5 bg-neon"></div>
+                    <span class="font-mono text-neon uppercase tracking-widest text-sm">Expertise</span>
+                </div>
+                <h2 class="font-display text-3xl md:text-7xl font-bold uppercase leading-tight mb-4">
+                    Technological<br>
+                    <span class="text-neon">Arsenal</span>
+                </h2>
+                <p class="font-sans text-gray-400 text-base md:text-lg max-w-2xl">
+                    A carefully curated stack of technologies that power my development workflow.
+                </p>
+            </div>
+
+            <!-- Main Skills -->
+            <div class="mobile-stack md:grid md:grid-cols-2 md:gap-8 mb-12 md:mb-16">
+                <!-- Go Card -->
+                <div class="skill-card-main fade-in-left">
+                    <div class="flex items-center gap-4 md:gap-6 mb-6 md:mb-8">
+                        <div
+                            class="w-12 h-12 md:w-16 md:h-16 bg-white/5 rounded-xl md:rounded-2xl flex items-center justify-center">
+                            <img src="pyth.webp" class="w-8 h-8 md:w-10 md:h-10" alt="Python">
+                        </div>
+                        <div>
+                            <h3 class="font-display text-2xl md:text-3xl mb-2">Python + Django </h3>
+                            <p class="font-mono text-xs md:text-sm text-gray-500">Backend Architecture • API Development
+                            </p>
+                        </div>
+                    </div>
+                    <p class="font-sans text-gray-300 text-sm md:text-base">
+                        Building scalable backend systems using Python and Django with clean architecture
+                        and RESTful API design.
+
+                    </p>
+                </div>
+
+                <!-- React Card -->
+                <div class="skill-card-main fade-in-right">
+                    <div class="flex items-center gap-4 md:gap-6 mb-6 md:mb-8">
+                        <div
+                            class="w-12 h-12 md:w-16 md:h-16 bg-white/5 rounded-xl md:rounded-2xl flex items-center justify-center">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"
+                                class="w-8 h-8 md:w-10 md:h-10" alt="React">
+                        </div>
+                        <div>
+                            <h3 class="font-display text-2xl md:text-3xl mb-2">React + Redux</h3>
+                            <p class="font-mono text-xs md:text-sm text-gray-500">Frontend Development • State
+                                Management</p>
+                        </div>
+                    </div>
+                    <p class="font-sans text-gray-300 text-sm md:text-base">
+                        Creating dynamic, responsive user interfaces with scalable state management and modern React
+                        patterns.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Secondary Skills Grid -->
+            <div class="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
+                <div class="bg-card p-4 md:p-6 rounded-xl border border-white/5 text-center hover:border-neon/30 transition-all duration-300 fade-in-up"
+                    style="animation-delay: 0.4s;">
+                    <div
+                        class="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 bg-white/5 rounded-lg flex items-center justify-center">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg"
+                            class="w-6 h-6 md:w-8 md:h-8" alt="JavaScript">
+                    </div>
+                    <h4 class="font-display text-base md:text-lg mb-1 md:mb-2">JavaScript</h4>
+                    <p class="font-mono text-xs text-gray-500">Core Language</p>
+                </div>
+                <div class="bg-card p-4 md:p-6 rounded-xl border border-white/5 text-center hover:border-neon/30 transition-all duration-300 fade-in-up"
+                    style="animation-delay: 0.1s;">
+                    <div
+                        class="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 bg-white/5 rounded-lg flex items-center justify-center">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg"
+                            class="w-6 h-6 md:w-8 md:h-8" alt="TypeScript">
+                    </div>
+                    <h4 class="font-display text-base md:text-lg mb-1 md:mb-2">TypeScript</h4>
+                    <p class="font-mono text-xs text-gray-500">Type Safety</p>
+                </div>
+                <div class="bg-card p-4 md:p-6 rounded-xl border border-white/5 text-center hover:border-neon/30 transition-all duration-300 fade-in-up"
+                    style="animation-delay: 0.2s;">
+                    <div
+                        class="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 bg-white/5 rounded-lg flex items-center justify-center">
+                        <!-- Correct Devicon URL -->
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg"
+                            class="w-6 h-6 md:w-8 md:h-8" alt="Tailwind CSS">
+                    </div>
+                    <h4 class="font-display text-base md:text-lg mb-1 md:mb-2">Tailwind CSS</h4>
+                    <p class="font-mono text-xs text-gray-500">Utility-first CSS</p>
+                </div>
+                <div class="bg-card p-4 md:p-6 rounded-xl border border-white/5 text-center hover:border-neon/30 transition-all duration-300 fade-in-up"
+                    style="animation-delay: 0.3s;">
+                    <div
+                        class="w-10 h-10 md:w-12 md:h-12 mx-auto mb-3 md:mb-4 bg-white/5 rounded-lg flex items-center justify-center">
+                        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg"
+                            class="w-6 h-6 md:w-8 md:h-8" alt="Bootstrap">
+                    </div>
+                    <h4 class="font-display text-base md:text-lg mb-1 md:mb-2">Bootstrap</h4>
+                    <p class="font-mono text-xs text-gray-500">CSS Framework</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Section -->
+    <section id="work" class="py-12 md:py-32 px-4 md:px-20">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="mb-12 md:mb-16 fade-in-up">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-8 md:w-12 h-0.5 bg-neon"></div>
+                    <span class="font-mono text-neon uppercase tracking-widest text-sm">Portfolio</span>
+                </div>
+                <h2 class="font-display text-3xl md:text-7xl font-bold uppercase leading-tight mb-4">
+                    Featured<br>
+                    <span class="text-neon">Projects</span>
+                </h2>
+                <p class="font-sans text-gray-400 text-base md:text-lg max-w-2xl">
+                    Showcasing my expertise through practical implementations and innovative solutions.
+                </p>
+            </div>
+
+            <!-- Projects Grid -->
+            <div class="space-y-6 md:space-y-8">
+                <!-- Project 1 - perfume -->
+                <a href="https://v-perfumee.onrender.com/" target="_blank" class="project-card block fade-in-up"
+                    style="animation-delay: 0.1s;">
+                    <div class="mobile-stack md:flex md:flex-row md:justify-between md:items-start md:gap-8">
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center gap-3 mb-4 md:mb-6">
+                                <span class="font-mono text-neon text-xl md:text-2xl font-bold">01</span>
+                                <span
+                                    class="font-mono text-xs text-neon bg-neon/10 px-2 py-1 rounded-full">E-Commerce</span>
+                                <span class="font-mono text-xs text-neon bg-neon/10 px-2 py-1 rounded-full">Full
+                                    Stack</span>
+                            </div>
+                            <h3 class="font-display text-2xl md:text-5xl mb-3 md:mb-4">V-PERFUME</h3>
+                            <p class="font-sans text-gray-400 text-sm md:text-lg mb-4 md:mb-6 max-w-2xl">
+                                A modern e-commerce platform for perfumes featuring a product catalog, shopping cart,
+                                and secure user authentication.
+
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-4 md:mb-6">
+                                <span class="tech-tag">React.js</span>
+                                <span class="tech-tag">Tailwind CSS</span>
+                                <span class="tech-tag">Redux</span>
+                                <span class="tech-tag">JSON API</span>
+                            </div>
+                            <div class="space-y-2 md:space-y-3">
+                                <div class="flex items-start gap-2 md:gap-3">
+                                    <div class="w-1.5 h-1.5 bg-neon rounded-full mt-1.5 md:mt-2"></div>
+                                    <p class="font-sans text-gray-300 text-sm md:text-base">Component-based architecture
+                                        with reusable UI components</p>
+                                </div>
+                                <div class="flex items-start gap-2 md:gap-3">
+                                    <div class="w-1.5 h-1.5 bg-neon rounded-full mt-1.5 md:mt-2"></div>
+                                    <p class="font-sans text-gray-300 text-sm md:text-base">Advanced state management
+                                        using Redux for cart and user data</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                            <i
+                                class="ri-arrow-right-up-line text-2xl md:text-3xl group-hover:text-neon transition-all duration-300"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Project 2 - Airbnb Clone -->
+                <!-- <a href="https://nabeelrahman-07.github.io/Clone-project/" target="_blank"
+                    class="project-card block fade-in-up" style="animation-delay: 0.2s;">
+                    <div class="mobile-stack md:flex md:flex-row md:justify-between md:items-start md:gap-8">
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center gap-3 mb-4 md:mb-6">
+                                <span class="font-mono text-neon text-xl md:text-2xl font-bold">02</span>
+                                <span class="font-mono text-xs text-neon bg-neon/10 px-2 py-1 rounded-full">UI/UX
+                                    Design</span>
+                            </div>
+                            <h3 class="font-display text-2xl md:text-5xl mb-3 md:mb-4">Airbnb Experience</h3>
+                            <p class="font-sans text-gray-400 text-sm md:text-lg mb-4 md:mb-6 max-w-2xl">
+                                A responsive UI clone of Airbnb with modern design patterns and smooth animations.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tech-tag">React</span>
+                                <span class="tech-tag">CSS</span>
+                                <span class="tech-tag">Framer Motion</span>
+                            </div>
+                        </div> -->
+                        <!-- <div class="mt-4 md:mt-0">
+                            <i
+                                class="ri-arrow-right-up-line text-2xl md:text-3xl group-hover:text-neon transition-all duration-300"></i>
+                        </div>
+                    </div>
+                </a> -->
+
+                <!-- Project 3 - Portfolio V1 -->
+                <a href="https://manhar-portfolio.vercel.app/" target="_blank" class="project-card block fade-in-up"
+                    style="animation-delay: 0.3s;">
+                    <div class="mobile-stack md:flex md:flex-row md:justify-between md:items-start md:gap-8">
+                        <div class="flex-1">
+                            <div class="flex flex-wrap items-center gap-3 mb-4 md:mb-6">
+                                <span class="font-mono text-neon text-xl md:text-2xl font-bold">03</span>
+                                <span
+                                    class="font-mono text-xs text-neon bg-neon/10 px-2 py-1 rounded-full">Portfolio</span>
+                            </div>
+                            <h3 class="font-display text-2xl md:text-5xl mb-3 md:mb-4">Personal Portfolio</h3>
+                            <p class="font-sans text-gray-400 text-sm md:text-lg mb-4 md:mb-6 max-w-2xl">
+                                Previous portfolio iteration showcasing advanced JavaScript animations and interactive
+                                elements.
+                            </p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">GSAP</span>
+                                <span class="tech-tag">Animations</span>
+                            </div>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                            <i
+                                class="ri-arrow-right-up-line text-2xl md:text-3xl group-hover:text-neon transition-all duration-300"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Structured Experience Section -->
+    <section id="experience" class="py-12 md:py-32 px-4 md:px-20 bg-darker">
+        <div class="max-w-7xl mx-auto">
+            <!-- Section Header -->
+            <div class="mb-12 md:mb-16 fade-in-up">
+                <div class="flex items-center gap-4 mb-6">
+                    <div class="w-8 md:w-12 h-0.5 bg-neon"></div>
+                    <span class="font-mono text-neon uppercase tracking-widest text-sm">Journey</span>
+                </div>
+                <h2 class="font-display text-3xl md:text-7xl font-bold uppercase leading-tight mb-4">
+                    Professional<br>
+                    <span class="text-neon">Experience</span>
+                </h2>
+                <p class="font-sans text-gray-400 text-base md:text-lg max-w-2xl">
+                    My career path focused on mastering full-stack development and delivering impactful solutions.
+                </p>
+            </div>
+
+            <!-- Experience Container -->
+            <div class="experience-container">
+                <!-- Left Column - Current Experience -->
+                <div class="fade-in-left">
+                    <div class="experience-card">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-10 h-10 bg-neon/20 rounded-xl flex items-center justify-center">
+                                <i class="ri-briefcase-line text-neon"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display text-2xl md:text-3xl mb-1">Current Role</h3>
+                                <p class="font-mono text-xs text-gray-500">Active Position</p>
+                            </div>
+                        </div>
+
+                        <div class="mb-8">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-3 h-3 bg-neon rounded-full animate-pulse"></div>
+                                <span
+                                    class="font-mono text-xs text-neon bg-neon/10 px-3 py-1 rounded-full">Present</span>
+                            </div>
+                            <h4 class="font-display text-xl md:text-2xl mb-2">Full Stack Developer Intern</h4>
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="font-sans text-neon font-semibold">Bridgeon Solutions</span>
+                                <span class="font-mono text-sm text-gray-500">Calicut</span>
+                            </div>
+                            <p class="font-sans text-gray-300 mb-6">
+                                Contributing to enterprise-level web applications with a focus on backend performance
+                                and frontend user experience.
+                            </p>
+
+                            <div class="space-y-4">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-2 h-2 bg-neon rounded-full mt-2"></div>
+                                    <div>
+                                        <h5 class="font-display font-semibold mb-1">Backend Development</h5>
+                                        <p class="font-sans text-gray-400 text-sm">Building RESTful APIs with Python and
+                                            Django framework</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-2 h-2 bg-neon rounded-full mt-2"></div>
+                                    <div>
+                                        <h5 class="font-display font-semibold mb-1">Frontend Development</h5>
+                                        <p class="font-sans text-gray-400 text-sm">Creating responsive React
+                                            applications with state management</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-2 h-2 bg-neon rounded-full mt-2"></div>
+                                    <div>
+                                        <h5 class="font-display font-semibold mb-1">Performance Optimization</h5>
+                                        <p class="font-sans text-gray-400 text-sm">Implementing best practices for
+                                            scalable applications</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-6 border-t border-white/10">
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 bg-white/5 rounded-full font-mono text-xs">Python</span>
+                                <span class="px-3 py-1 bg-white/5 rounded-full font-mono text-xs">Django</span>
+                                <span class="px-3 py-1 bg-white/5 rounded-full font-mono text-xs">React</span>
+                                <span class="px-3 py-1 bg-white/5 rounded-full font-mono text-xs">Redux</span>
+                                <span class="px-3 py-1 bg-white/5 rounded-full font-mono text-xs">TypeScript</span>
+                            </div>
+                            <div class="font-mono text-sm text-gray-500">
+                                Sept 2025 – Present
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Timeline & Education -->
+                <div class="fade-in-right">
+                    <div class="experience-card">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-10 h-10 bg-neon/20 rounded-xl flex items-center justify-center">
+                                <i class="ri-graduation-cap-line text-neon"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-display text-2xl md:text-3xl mb-1">Education & Timeline</h3>
+                                <p class="font-mono text-xs text-gray-500">Academic Background</p>
+                            </div>
+                        </div>
+
+                        <div class="experience-timeline">
+                            <!-- Education -->
+                            <div class="experience-item">
+                                <h4 class="font-display text-xl md:text-2xl mb-2">BCA Graduate</h4>
+                                <div class="flex items-center gap-4 mb-3">
+                                    <span class="font-sans text-white font-semibold">University</span>
+                                    <span class="font-mono text-sm text-gray-500">Calicut, Kerala</span>
+                                </div>
+                                <p class="font-sans text-gray-300 mb-4">
+                                    Developed strong foundation in computer science principles, algorithms, data
+                                    structures, and software engineering practices.
+                                </p>
+                                <div class="font-mono text-sm text-gray-500">
+                                    2022 – 2025
+                                </div>
+                            </div>
+
+                            <!-- Skills Development -->
+                            <div class="experience-item">
+                                <h4 class="font-display text-xl md:text-2xl mb-2">Skills Development</h4>
+                                <div class="flex items-center gap-4 mb-3">
+                                    <span class="font-sans text-white font-semibold">Self Learning</span>
+                                    <span class="font-mono text-sm text-gray-500">Ongoing</span>
+                                </div>
+                                <p class="font-sans text-gray-300 mb-4">
+                                    Continuously learning and adapting to new technologies, frameworks, and best
+                                    practices in software development.
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-white/5 rounded-full font-mono text-xs">Modern Web</span>
+                                    <span class="px-2 py-1 bg-white/5 rounded-full font-mono text-xs">System
+                                        Design</span>
+                                    <span class="px-2 py-1 bg-white/5 rounded-full font-mono text-xs">DevOps</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Career Goals -->
+                        <div class="mt-8 pt-6 border-t border-white/10">
+                            <h4 class="font-display text-xl mb-4">Career Goals</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-start gap-3">
+                                    <div class="w-2 h-2 bg-neon rounded-full mt-2"></div>
+                                    <p class="font-sans text-gray-300">Architect high-concurrency systems at scale</p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-2 h-2 bg-neon rounded-full mt-2"></div>
+                                    <p class="font-sans text-gray-300">Lead development of innovative digital products
+                                    </p>
+                                </div>
+                                <div class="flex items-start gap-3">
+                                    <div class="w-2 h-2 bg-neon rounded-full mt-2"></div>
+                                    <p class="font-sans text-gray-300">Contribute to open-source projects</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-12 md:py-32 px-4 md:px-20">
+        <div class="max-w-7xl mx-auto">
+            <div class="mobile-stack lg:grid lg:grid-cols-2 lg:gap-16">
+                <!-- Left Column -->
+                <div class="fade-in-left">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-8 md:w-12 h-0.5 bg-neon"></div>
+                        <span class="font-mono text-neon uppercase tracking-widest text-sm">Connect</span>
+                    </div>
+                    <h2 class="font-display text-3xl md:text-7xl font-bold uppercase leading-tight mb-6 md:mb-8">
+                        Let's Build<br>
+                        <span class="text-neon">Together</span>
+                    </h2>
+
+                    <div class="space-y-6 md:space-y-8 mt-8 md:mt-12">
+                        <!-- Email -->
+                        <div class="flex items-start gap-4 md:gap-6 group">
+                            <div
+                                class="w-10 h-10 md:w-14 md:h-14 bg-white/5 rounded-lg md:rounded-xl flex items-center justify-center">
+                                <i class="ri-mail-line text-neon text-xl md:text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-mono text-xs text-gray-500 uppercase mb-1 md:mb-2">Email</p>
+                                <a href="mailto:manhargurukkal2@gmail.com"
+                                    class="font-sans text-base md:text-xl hover:text-neon transition-all duration-300 break-words">
+                                    manhargurukkal2@gmail.com
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="flex items-start gap-4 md:gap-6">
+                            <div
+                                class="w-10 h-10 md:w-14 md:h-14 bg-white/5 rounded-lg md:rounded-xl flex items-center justify-center">
+                                <i class="ri-links-line text-neon text-xl md:text-2xl"></i>
+                            </div>
+                            <div>
+                                <p class="font-mono text-xs text-gray-500 uppercase mb-3 md:mb-4">Connect</p>
+                                <div class="flex gap-3 md:gap-4">
+                                    <a href="https://github.com/Manharrr" target="_blank"
+                                        class="w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-lg md:rounded-xl flex items-center justify-center hover:bg-neon hover:text-dark transition-all duration-300">
+                                        <i class="ri-github-fill"></i>
+                                    </a>
+                                    <a href="https://www.linkedin.com/in/manharck/" target="_blank"
+                                        class="w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-lg md:rounded-xl flex items-center justify-center hover:bg-neon hover:text-dark transition-all duration-300">
+                                        <i class="ri-linkedin-fill"></i>
+                                    </a>
+                                    <a href="https://www.instagram.com/manhar_____/" target="_blank"
+                                        class="w-10 h-10 md:w-12 md:h-12 bg-white/5 rounded-lg md:rounded-xl flex items-center justify-center hover:bg-neon hover:text-dark transition-all duration-300">
+                                        <i class="ri-instagram-line"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Contact Form -->
+                <div
+                    class="bg-card p-6 md:p-12 rounded-2xl md:rounded-3xl border border-white/5 fade-in-right mt-8 md:mt-0">
+                    <h3 class="font-display text-2xl md:text-3xl mb-4">Send a Message</h3>
+                    <p class="font-sans text-gray-400 text-sm md:text-base mb-6 md:mb-8">
+                        Have a project in mind or want to collaborate? Let's discuss how we can bring your ideas to
+                        life.
+                    </p>
+
+                    <form id="contact-form" class="space-y-6 md:space-y-8">
+                        <div>
+                            <label class="font-mono text-xs text-neon uppercase block mb-2 md:mb-3">Your Name</label>
+                            <input type="text" id="inputname" class="form-input" placeholder="Enter your name" required>
+                        </div>
+
+                        <div>
+                            <label class="font-mono text-xs text-neon uppercase block mb-2 md:mb-3">Your Email</label>
+                            <input type="email" id="inputemail" class="form-input" placeholder="Enter your email"
+                                required>
+                        </div>
+
+                        <div>
+                            <label class="font-mono text-xs text-neon uppercase block mb-2 md:mb-3">Message</label>
+                            <textarea id="message" rows="4" class="form-input resize-none"
+                                placeholder="Tell me about your project..." required></textarea>
+                        </div>
+
+                        <button type="submit" id="submit-btn"
+                            class="w-full cta-btn bg-neon text-dark hover:bg-neon-dark">
+                            <span id="btn-text">Send Message</span>
+                            <i id="btn-icon" class="ri-send-plane-line"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 px-4 md:px-20 border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="mobile-stack md:flex md:flex-row md:justify-between md:items-center md:gap-8">
+                <!-- Brand -->
+                <div class="flex items-center gap-3 md:gap-4 mb-4 md:mb-0">
+                    <div
+                        class="w-8 h-8 md:w-10 md:h-10 bg-neon rounded-lg md:rounded-xl flex items-center justify-center">
+                        <span class="font-display font-black text-dark text-base md:text-xl">M</span>
+                    </div>
+                    <div>
+                        <h3 class="font-display text-lg md:text-xl font-bold tracking-tighter">MANHAR GURUKKAL CK.</h3>
+                        <p class="font-mono text-xs text-gray-500 mt-1">Full Stack Developer</p>
+                    </div>
+                </div>
+
+                <!-- Links -->
+                <div class="flex flex-wrap justify-center gap-4 md:gap-6 font-mono text-sm text-gray-400 mb-4 md:mb-0">
+                    <a href="#about" class="hover:text-neon transition-colors">Profile</a>
+                    <a href="#skills" class="hover:text-neon transition-colors">Skills</a>
+                    <a href="#work" class="hover:text-neon transition-colors">Projects</a>
+                    <a href="#experience" class="hover:text-neon transition-colors">Experience</a>
+                    <a href="#contact" class="hover:text-neon transition-colors">Contact</a>
+                </div>
+
+                <!-- Copyright -->
+                <div class="font-mono text-sm text-gray-500 text-center">
+                    © 2026 MANHAR GURUKKAL CK. • CRAFTED WITH PRECISION
+                </div>
+            </div>
+
+            <!-- Back to Top -->
+            <button id="back-to-top"
+                class="fixed bottom-6 right-6 w-10 h-10 md:w-12 md:h-12 bg-card border border-white/10 rounded-full flex items-center justify-center hover:border-neon hover:text-neon transition-all duration-300 opacity-0 pointer-events-none z-50">
+                <i class="ri-arrow-up-line"></i>
+            </button>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+            // Initialize EmailJS
+            (function () {
+                emailjs.init("SQOEYtOrAeFGsb-ZW");
+            })();
+
+        // Wait for DOM to load
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('Portfolio Initializing...');
+
+            // Hide loading screen with smooth transition
+            setTimeout(function () {
+                const loadingScreen = document.getElementById('loading-screen');
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    loadingScreen.style.transition = 'opacity 0.5s ease';
+
+                    setTimeout(function () {
+                        loadingScreen.style.display = 'none';
+                        initPortfolio();
+                    }, 500);
+                } else {
+                    initPortfolio();
+                }
+            }, 2000);
+        });
+
+        function initPortfolio() {
+            console.log('Portfolio Initialized');
+
+            // Mobile Hamburger Menu
+            const mobileNavBtn = document.getElementById('mobile-nav-btn');
+            const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+            const mobileLinks = mobileMenuOverlay.querySelectorAll('a');
+
+            if (mobileNavBtn && mobileMenuOverlay) {
+                let isMenuOpen = false;
+
+                mobileNavBtn.addEventListener('click', function () {
+                    isMenuOpen = !isMenuOpen;
+
+                    if (isMenuOpen) {
+                        // Open menu
+                        this.classList.add('active');
+                        mobileMenuOverlay.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+
+                        // Animate links sequentially
+                        mobileLinks.forEach((link, index) => {
+                            setTimeout(() => {
+                                link.style.opacity = '1';
+                                link.style.transform = 'translateY(0)';
+                            }, 100 + (index * 100));
+                        });
+                    } else {
+                        // Close menu
+                        this.classList.remove('active');
+                        mobileMenuOverlay.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+
+                        // Reset links
+                        mobileLinks.forEach(link => {
+                            link.style.opacity = '0';
+                            link.style.transform = 'translateY(20px)';
+                        });
+                    }
+                });
+
+                // Close menu when clicking links
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', function () {
+                        mobileNavBtn.classList.remove('active');
+                        mobileMenuOverlay.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                        isMenuOpen = false;
+
+                        mobileLinks.forEach(link => {
+                            link.style.opacity = '0';
+                            link.style.transform = 'translateY(20px)';
+                        });
+                    });
+                });
+
+                // Close menu when clicking outside
+                mobileMenuOverlay.addEventListener('click', function (e) {
+                    if (e.target === mobileMenuOverlay) {
+                        mobileNavBtn.classList.remove('active');
+                        mobileMenuOverlay.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                        isMenuOpen = false;
+
+                        mobileLinks.forEach(link => {
+                            link.style.opacity = '0';
+                            link.style.transform = 'translateY(20px)';
+                        });
+                    }
+                });
+
+                // Close menu with Escape key
+                document.addEventListener('keydown', function (e) {
+                    if (e.key === 'Escape' && isMenuOpen) {
+                        mobileNavBtn.classList.remove('active');
+                        mobileMenuOverlay.classList.remove('active');
+                        document.body.style.overflow = 'auto';
+                        isMenuOpen = false;
+
+                        mobileLinks.forEach(link => {
+                            link.style.opacity = '0';
+                            link.style.transform = 'translateY(20px)';
+                        });
+                    }
+                });
+
+                // Initialize link styles
+                mobileLinks.forEach(link => {
+                    link.style.opacity = '0';
+                    link.style.transform = 'translateY(20px)';
+                    link.style.transition = 'all 0.3s ease';
+                });
+            }
+
+            // Hero Text Animation
+            const heroTexts = document.querySelectorAll('.hero-text');
+            heroTexts.forEach((text, index) => {
+                setTimeout(() => {
+                    text.style.transition = 'transform 0.8s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.8s ease';
+                    text.style.transform = 'translateY(0)';
+                    text.style.opacity = '1';
+                }, index * 200 + 300);
+            });
+
+            // Navbar Scroll Effect
+            const nav = document.getElementById('main-nav');
+            window.addEventListener('scroll', function () {
+                if (window.pageYOffset > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            });
+
+            // Back to Top Button
+            const backToTopBtn = document.getElementById('back-to-top');
+            if (backToTopBtn) {
+                window.addEventListener('scroll', function () {
+                    if (window.pageYOffset > 500) {
+                        backToTopBtn.style.opacity = '1';
+                        backToTopBtn.style.pointerEvents = 'auto';
+                        backToTopBtn.style.transform = 'translateY(0)';
+                    } else {
+                        backToTopBtn.style.opacity = '0';
+                        backToTopBtn.style.pointerEvents = 'none';
+                        backToTopBtn.style.transform = 'translateY(10px)';
+                    }
+                });
+
+                backToTopBtn.addEventListener('click', function () {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+
+            // Scroll Animations
+            const animatedElements = document.querySelectorAll('.fade-in-up, .fade-in-left, .fade-in-right');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animationPlayState = 'running';
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translate(0, 0)';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            animatedElements.forEach(element => {
+                element.style.animationPlayState = 'paused';
+                observer.observe(element);
+            });
+
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        // Close mobile menu if open
+                        if (mobileMenuOverlay && mobileMenuOverlay.classList.contains('active')) {
+                            mobileMenuBtn.classList.remove('active');
+                            mobileMenuOverlay.classList.remove('active');
+                            document.body.style.overflow = 'auto';
+                        }
+
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Form Submission
+            const contactForm = document.getElementById('contact-form');
+            if (contactForm) {
+                contactForm.addEventListener('submit', async function (e) {
+                    e.preventDefault();
+
+                    const submitBtn = document.getElementById('submit-btn');
+                    const btnText = document.getElementById('btn-text');
+                    const btnIcon = document.getElementById('btn-icon');
+
+                    // Get form data
+                    const name = document.getElementById('inputname').value.trim();
+                    const email = document.getElementById('inputemail').value.trim();
+                    const message = document.getElementById('message').value.trim();
+
+                    // Validation
+                    if (!name || !email || !message) {
+                        showNotification('Please fill in all fields.', 'error');
+                        return;
+                    }
+
+                    if (!isValidEmail(email)) {
+                        showNotification('Please enter a valid email address.', 'error');
+                        return;
+                    }
+
+                    // Change button state
+                    const originalText = btnText.textContent;
+                    const originalIcon = btnIcon.className;
+
+                    btnText.textContent = 'Sending...';
+                    btnIcon.className = 'ri-loader-4-line animate-spin';
+                    submitBtn.disabled = true;
+
+                    // Prepare parameters
+                    const params = {
+                        name: name,
+                        email: email,
+                        message: message
+                    };
+
+                    try {
+                        // Send email using EmailJS
+                        const response = await emailjs.send(
+                            "service_p6r5j8p",
+                            "template_phgma9f",
+                            params
+                        );
+
+                        if (response.status === 200) {
+                            // Success
+                            showNotification('Message sent successfully!', 'success');
+
+                            // Reset form
+                            contactForm.reset();
+
+                            // Update button
+                            btnText.textContent = 'Message Sent!';
+                            btnIcon.className = 'ri-check-line';
+                            submitBtn.style.background = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
+
+                            // Reset after 3 seconds
+                            setTimeout(() => {
+                                btnText.textContent = originalText;
+                                btnIcon.className = originalIcon;
+                                submitBtn.style.background = '';
+                                submitBtn.disabled = false;
+                            }, 3000);
+                        }
+                    } catch (error) {
+                        console.error('EmailJS Error:', error);
+                        showNotification('Failed to send message. Please try again.', 'error');
+
+                        // Reset button
+                        btnText.textContent = originalText;
+                        btnIcon.className = originalIcon;
+                        submitBtn.disabled = false;
+                    }
+                });
+            }
+
+            // Email validation function
+            function isValidEmail(email) {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return re.test(email);
+            }
+
+            // Notification function
+            function showNotification(message, type) {
+                // Create notification element
+                const notification = document.createElement('div');
+                notification.className = `fixed top-4 right-4 left-4 md:left-auto md:right-6 z-[9999] px-4 py-3 md:px-6 md:py-4 rounded-lg font-sans text-sm md:text-base font-medium transition-all duration-300 transform translate-y-full md:translate-x-full`;
+
+                if (type === 'success') {
+                    notification.style.background = 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
+                    notification.style.color = 'white';
+                } else {
+                    notification.style.background = 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)';
+                    notification.style.color = 'white';
+                }
+
+                notification.textContent = message;
+                notification.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+                document.body.appendChild(notification);
+
+                // Animate in
+                setTimeout(() => {
+                    notification.style.transform = 'translateY(0)';
+                }, 10);
+
+                // Remove after 5 seconds
+                setTimeout(() => {
+                    notification.style.transform = 'translateY(100px)';
+                    notification.style.opacity = '0';
+
+                    setTimeout(() => {
+                        notification.remove();
+                    }, 300);
+                }, 5000);
+            }
+
+            // Add loading animation style
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes spin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+                
+                .animate-spin {
+                    animation: spin 1s linear infinite;
+                }
+                
+                /* Smooth transitions for all interactive elements */
+                .hamburger-menu span,
+                .mobile-menu-overlay,
+                .mobile-nav-link,
+                .nav-link,
+                .cv-btn,
+                .cta-btn,
+                .skill-card-main,
+                .project-card,
+                .experience-card,
+                .tech-tag {
+                    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                }
+            `;
+            document.head.appendChild(style);
+
+            console.log('Portfolio ready!');
+        }
+    </script>
+</body>
+
+</html>
